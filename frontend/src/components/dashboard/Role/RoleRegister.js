@@ -49,23 +49,10 @@ class RoleRegister extends Component {
       <Container>
         <Row className="justify-content-md-center">
           <Col md="auto">
-            <Link
-              to="/"
-              style={{ color: "inherit", textDecoration: "inherit" }}
-            >
-              <i className="material-icons left">keyboard_backspace</i>
-              Volver a inicio
-            </Link>
             <Col>
               <h4>
                 <b>Registrar rol de usuario</b> a continuación
               </h4>
-              <p>
-                ¿Ya tienes una cuenta?{" "}
-                <Link to="/login" style={{ textDecoration: "inherit" }}>
-                  Iniciar sesión
-                </Link>
-              </p>
             </Col>
             <Form noValidate onSubmit={this.onSubmit}>
               <Form.Group>

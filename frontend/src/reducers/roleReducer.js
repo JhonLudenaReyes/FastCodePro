@@ -1,6 +1,8 @@
 import {
   GET_LIST_ROLES_BY_ROLE,
   SAVE_ROLE_REGISTER,
+  EDIT_ROLE_REGISTER,
+  SAVE_ROLE_LIST,
   DELETE_ROLE_BY_ID,
 } from "../actions/types.js";
 
@@ -10,6 +12,7 @@ const isEmpty = require("is-empty");
 const initialState = {
   listRolesByRole: [],
   verification: false,
+  role: {},
 };
 
 export default function (state = initialState, action) {
@@ -25,6 +28,16 @@ export default function (state = initialState, action) {
       return {
         ...state,
         verification: !isEmpty(action.payload),
+      };
+    case EDIT_ROLE_REGISTER:
+      return {
+        ...state,
+        verification: !isEmpty(action.payload),
+      };
+    case SAVE_ROLE_LIST:
+      return {
+        ...state,
+        role: action.payload,
       };
     case DELETE_ROLE_BY_ID:
       return {

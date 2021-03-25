@@ -3,6 +3,8 @@ import axios from "axios";
 import {
   GET_LIST_ROLES_BY_ROLE,
   SAVE_ROLE_REGISTER,
+  EDIT_ROLE_REGISTER,
+  SAVE_ROLE_LIST,
   DELETE_ROLE_BY_ID,
 } from "./types.js";
 
@@ -30,6 +32,25 @@ export const saveRoleRegister = (data) => (dispatch) => {
       })
     )
     .catch((err) => console.log(err));
+};
+
+export const editRoleRegister = (data) => (dispatch) => {
+  axios
+    .put(`/services_fastcode/webapi/roles_service`, data)
+    .then((res) =>
+      dispatch({
+        type: EDIT_ROLE_REGISTER,
+        payload: res.data,
+      })
+    )
+    .catch((err) => console.log(err));
+};
+
+export const saveRoleList = (role) => (dispatch) => {
+  dispatch({
+    type: SAVE_ROLE_LIST,
+    payload: role,
+  });
 };
 
 export const deleteRoleById = (roleId) => (dispatch) => {

@@ -5,27 +5,25 @@ import { connect } from "react-redux";
 
 import { Table, Button } from "react-bootstrap";
 
-import { getListRolesByRole } from "../../../actions/rolActions";
-import { saveRoleList } from "../../../actions/rolActions";
-import { deleteRoleById } from "../../../actions/rolActions";
+import { getListUserRolesByRole } from "../../../actions/userRolesActions";
 
-class ListRolesByRole extends Component {
+class ListUserRolesByRole extends Component {
   componentDidMount() {
-    this.getListRole();
+    this.getListUserRoles();
   }
 
-  componentDidUpdate(prevProps) {
-    const { listRolesByRole } = this.props.role;
-    if (listRolesByRole === prevProps.role.listRolesByRole) {
-      this.getListRole();
+  /*componentDidUpdate(prevProps) {
+    const { listUserRolesByRole } = this.props.userRole;
+    if (listUserRolesByRole === prevProps.role.listUserRolesByRole) {
+      this.getListUserRoles();
     }
-  }
+  }*/
 
-  getListRole = () => {
+  getListUserRoles = () => {
     const { user } = this.props.auth;
-    this.props.getListRolesByRole(user.rol);
+    this.props.getListUserRolesByRole(user.rol);
   };
-
+  /*
   handleClickEdit = (roleId, roleDescription, roleObservations) => {
     const data = {
       roleId,
@@ -40,9 +38,9 @@ class ListRolesByRole extends Component {
     console.log(roleId);
     this.props.deleteRoleById(roleId);
   };
-
+*/
   render() {
-    const { listRolesByRole } = this.props.role;
+    const { listUserRolesByRole } = this.props.userRole;
 
     return (
       <>
@@ -50,8 +48,9 @@ class ListRolesByRole extends Component {
           <thead>
             <tr>
               <th>#</th>
+              <th>Id Usuario Rol</th>
+              <th>Id Usuario</th>
               <th>Id Rol</th>
-              <th>Nombre De Rol</th>
               <th>Observaciones</th>
               <th>
                 Acciones{" "}
@@ -65,29 +64,18 @@ class ListRolesByRole extends Component {
             </tr>
           </thead>
           <tbody>
-            {listRolesByRole.map((rol, index) => (
+            {listUserRolesByRole.map((userRole, index) => (
               <tr key={index}>
                 <td>{index + 1}</td>
-                <td>{rol.idRol}</td>
-                <td>{rol.descripcionRol}</td>
-                <td>{rol.observaciones}</td>
+                <td>{userRole.idRoles_Usuario}</td>
+                <td>{userRole.idUsuario}</td>
+                <td>{userRole.idRol}</td>
+                <td>{userRole.observaciones}</td>
                 <td>
-                  <Button
-                    variant="outline-primary"
-                    onClick={() =>
-                      this.handleClickEdit(
-                        rol.idRol,
-                        rol.descripcionRol,
-                        rol.observaciones
-                      )
-                    }
-                  >
-                    Editar
-                  </Button>{" "}
+                  <Button variant="outline-primary">Editar</Button>{" "}
                   <Link
                     to="/dashboard/super-administrator"
                     className="btn btn-outline-primary"
-                    onClick={() => this.handleClickDelete(rol.idRol)}
                   >
                     Eliminar
                   </Link>
@@ -101,21 +89,17 @@ class ListRolesByRole extends Component {
   }
 }
 
-ListRolesByRole.propTypes = {
-  getListRolesByRole: PropTypes.func.isRequired,
-  saveRoleList: PropTypes.func.isRequired,
-  deleteRoleById: PropTypes.func.isRequired,
+ListUserRolesByRole.propTypes = {
+  getListUserRolesByRole: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired,
-  role: PropTypes.object.isRequired,
+  userRole: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   auth: state.auth,
-  role: state.role,
+  userRole: state.userRole,
 });
 
 export default connect(mapStateToProps, {
-  getListRolesByRole,
-  saveRoleList,
-  deleteRoleById,
-})(withRouter(ListRolesByRole));
+  getListUserRolesByRole,
+})(withRouter(ListUserRolesByRole));

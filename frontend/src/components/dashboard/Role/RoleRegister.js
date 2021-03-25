@@ -1,17 +1,34 @@
 import React, { Component } from "react";
-import { Link, withRouter } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 
 import { Container, Row, Col, Form, Button } from "react-bootstrap";
 
 import { saveRoleRegister } from "../../../actions/rolActions";
+import { editRoleRegister } from "../../../actions/rolActions";
 
 class RoleRegister extends Component {
   //Establece el estado de este componente...
   state = {
+    roleId: "",
     roleDescription: "",
-    observations: "",
+    roleObservations: "",
+  };
+
+  componentDidUpdate(prevProps) {
+    const { role } = this.props.role;
+    if (role !== prevProps.role.role) {
+      this.changeState(role);
+    }
+  }
+
+  changeState = (role) => {
+    this.setState({
+      roleId: role.roleId,
+      roleDescription: role.roleDescription,
+      roleObservations: role.roleObservations,
+    });
   };
 
   //Captura los datos del formulario y los almacena en el state...
@@ -26,11 +43,21 @@ class RoleRegister extends Component {
     //Datos del state
     const dataSave = {
       descripcionRol: this.state.roleDescription,
-      observaciones: this.state.observations,
+      observaciones: this.state.roleObservations,
     };
 
-    //Función que guarda la información en la base de datos...
-    this.props.saveRoleRegister(dataSave);
+    const dataEdit = {
+      descripcionRol: this.state.roleDescription,
+      observaciones: this.state.roleObservations,
+      estatusRol: "A",
+      idRol: this.state.roleId,
+    };
+
+    if (this.state.roleId) {
+      this.props.editRoleRegister(dataEdit);
+    } else {
+      this.props.saveRoleRegister(dataSave);
+    }
 
     //Función que limpia el formulario...
     this.clearState();
@@ -39,8 +66,9 @@ class RoleRegister extends Component {
   //Esta función establece los parametros del state en vacio...
   clearState = () => {
     this.setState({
+      roleId: "",
       roleDescription: "",
-      observations: "",
+      roleObservations: "",
     });
   };
 
@@ -69,8 +97,8 @@ class RoleRegister extends Component {
                 <Form.Label>Ingrese las observaciones</Form.Label>
                 <Form.Control
                   onChange={this.onChange}
-                  value={this.state.observations}
-                  id="observations"
+                  value={this.state.roleObservations}
+                  id="roleObservations"
                   type="text"
                   placeholder="Ingrese observaciones"
                 />
@@ -88,6 +116,7 @@ class RoleRegister extends Component {
 
 RoleRegister.propTypes = {
   saveRoleRegister: PropTypes.func.isRequired,
+  editRoleRegister: PropTypes.func.isRequired,
   role: PropTypes.object.isRequired,
 };
 
@@ -97,4 +126,5 @@ const mapStateToProps = (state) => ({
 
 export default connect(mapStateToProps, {
   saveRoleRegister,
+  editRoleRegister,
 })(withRouter(RoleRegister));

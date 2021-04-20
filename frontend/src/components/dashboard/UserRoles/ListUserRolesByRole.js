@@ -3,10 +3,11 @@ import PropTypes from "prop-types";
 import { Link, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 
-import { Table, Button } from "react-bootstrap";
+import { Table, Button, Pagination } from "react-bootstrap";
 
 import { getListUserRolesByRole } from "../../../actions/userRolesActions";
-
+import { saveUserRoleList } from "../../../actions/userRolesActions";
+import "./Styles/ListUserRolesByRole.css";
 class ListUserRolesByRole extends Component {
   componentDidMount() {
     this.getListUserRoles();
@@ -23,22 +24,18 @@ class ListUserRolesByRole extends Component {
     const { user } = this.props.auth;
     this.props.getListUserRolesByRole(user.rol);
   };
-  /*
-  handleClickEdit = (roleId, roleDescription, roleObservations) => {
+
+  handleClickEdit = (userRoleId, userId, roleId, observations) => {
     const data = {
+      userRoleId,
+      userId,
       roleId,
-      roleDescription,
-      roleObservations,
+      observations,
     };
     console.log(data);
-    this.props.saveRoleList(data);
+    this.props.saveUserRoleList(data);
   };
 
-  handleClickDelete = (roleId) => {
-    console.log(roleId);
-    this.props.deleteRoleById(roleId);
-  };
-*/
   render() {
     const { listUserRolesByRole } = this.props.userRole;
 
@@ -54,10 +51,7 @@ class ListUserRolesByRole extends Component {
               <th>Observaciones</th>
               <th>
                 Acciones{" "}
-                <Link
-                  to="/dashboard/super-administrator/users-administration/user-save"
-                  className="btn btn-outline-primary"
-                >
+                <Link to="#" className="btn btn-outline-primary">
                   Agregar
                 </Link>
               </th>
@@ -72,16 +66,28 @@ class ListUserRolesByRole extends Component {
                 <td>{userRole.idRol}</td>
                 <td>{userRole.observaciones}</td>
                 <td>
-                  <Button variant="outline-primary">Editar</Button>{" "}
-                  <Link
-                    to="/dashboard/super-administrator"
-                    className="btn btn-outline-primary"
+                  <Button
+                    variant="outline-primary"
+                    onClick={() =>
+                      this.handleClickEdit(
+                        userRole.idRoles_Usuario,
+                        userRole.idUsuario,
+                        userRole.idRol,
+                        userRole.observaciones
+                      )
+                    }
                   >
-                    Eliminar
-                  </Link>
+                    Editar
+                  </Button>
                 </td>
               </tr>
             ))}
+            <Pagination>
+              <Pagination.First />
+              <Pagination.Prev />
+              <Pagination.Next />
+              <Pagination.Last />
+            </Pagination>
           </tbody>
         </Table>
       </>
@@ -91,6 +97,7 @@ class ListUserRolesByRole extends Component {
 
 ListUserRolesByRole.propTypes = {
   getListUserRolesByRole: PropTypes.func.isRequired,
+  saveUserRoleList: PropTypes.func.isRequired,
   auth: PropTypes.object.isRequired,
   userRole: PropTypes.object.isRequired,
 };
@@ -102,4 +109,5 @@ const mapStateToProps = (state) => ({
 
 export default connect(mapStateToProps, {
   getListUserRolesByRole,
+  saveUserRoleList,
 })(withRouter(ListUserRolesByRole));

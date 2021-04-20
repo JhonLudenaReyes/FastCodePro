@@ -7,6 +7,7 @@ import ListUsersByRole from "../User/ListUsersByRole";
 import ListRolesByRole from "../Role/ListRolesByRole";
 import RoleRegister from "../Role/RoleRegister";
 import ListUserRolesByRole from "../UserRoles/ListUserRolesByRole";
+import UserRoleRegister from "../UserRoles/UserRoleRegister";
 class RolesAdmin extends Component {
   render() {
     return (
@@ -32,6 +33,10 @@ class RolesAdmin extends Component {
               <Row className="justify-content-md-center">
                 <h1>Roles de usuario</h1>
                 <ListUserRolesByRole />
+              </Row>
+              <Row className="justify-content-md-center">
+                <h1>Asignación de Roles</h1>
+                <UserRoleRegister />
               </Row>
             </Col>
           </Row>

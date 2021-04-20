@@ -4,6 +4,7 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { loginUser } from "../../actions/authActions";
 import { Container, Row, Col, Form, Button } from "react-bootstrap";
+import "./styles/Login.css";
 
 class Login extends Component {
   constructor() {
@@ -60,7 +61,7 @@ class Login extends Component {
 
   render() {
     return (
-      <Container>
+      <Container className="stylesContainer">
         <Row className="justify-content-md-center">
           <Col md="auto">
             <Link

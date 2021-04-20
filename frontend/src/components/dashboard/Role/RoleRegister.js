@@ -4,16 +4,28 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 
 import { Container, Row, Col, Form, Button } from "react-bootstrap";
+import Select from "react-select";
 
 import { saveRoleRegister } from "../../../actions/rolActions";
 import { editRoleRegister } from "../../../actions/rolActions";
 
+const options = [
+  { value: 1, label: "Jhon" },
+  { value: 2, label: "Michael" },
+  { value: 3, label: "Carlos" },
+];
 class RoleRegister extends Component {
   //Establece el estado de este componente...
   state = {
     roleId: "",
     roleDescription: "",
     roleObservations: "",
+    selectedOption: null,
+  };
+
+  handleChange = (selectedOption) => {
+    this.setState({ selectedOption });
+    console.log(`Option selected:`, selectedOption);
   };
 
   componentDidUpdate(prevProps) {
@@ -73,6 +85,7 @@ class RoleRegister extends Component {
   };
 
   render() {
+    const { selectedOption } = this.state;
     return (
       <Container>
         <Row className="justify-content-md-center">
@@ -93,6 +106,11 @@ class RoleRegister extends Component {
                   placeholder="Ingrese nombre del rol"
                 />
               </Form.Group>
+              <Select
+                value={selectedOption}
+                onChange={this.handleChange}
+                options={options}
+              />
               <Form.Group>
                 <Form.Label>Ingrese las observaciones</Form.Label>
                 <Form.Control

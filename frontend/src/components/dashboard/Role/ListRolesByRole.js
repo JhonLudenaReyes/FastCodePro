@@ -8,7 +8,6 @@ import { Table, Button } from "react-bootstrap";
 import { getListRolesByRole } from "../../../actions/rolActions";
 import { saveRoleList } from "../../../actions/rolActions";
 import { deleteRoleById } from "../../../actions/rolActions";
-
 class ListRolesByRole extends Component {
   componentDidMount() {
     this.getListRole();

@@ -6,6 +6,8 @@ import { connect } from "react-redux";
 import { logoutUser } from "../../../actions/authActions";
 import { clearCurrentProfile } from "../../../actions/profileActions";
 
+import "./Styles/AuthNavbar.css";
+
 class AuthNavbar extends Component {
   componentDidMount() {}
 
@@ -21,13 +23,13 @@ class AuthNavbar extends Component {
     return (
       <Container>
         <Nav className="mr-auto">
-          <Link
+          <Link className="Link"
             to="/dashboard/super-administrator/users-administration"
             style={{ color: "gray", textDecoration: "inherit" }}
           >
             <b>Usuario</b>
           </Link>
-          <Link
+          <Link className="Link"
             to="/dashboard/super-administrator/roles-administration"
             style={{ color: "gray", textDecoration: "inherit" }}
           >

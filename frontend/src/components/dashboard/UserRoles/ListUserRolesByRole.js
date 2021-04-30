@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { Link, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 
-import { Table, Button, Pagination } from "react-bootstrap";
+import { Table, Button } from "react-bootstrap";
 
 import { getListUserRolesByRole } from "../../../actions/userRolesActions";
 import { saveUserRoleList } from "../../../actions/userRolesActions";
@@ -82,12 +82,6 @@ class ListUserRolesByRole extends Component {
                 </td>
               </tr>
             ))}
-            <Pagination>
-              <Pagination.First />
-              <Pagination.Prev />
-              <Pagination.Next />
-              <Pagination.Last />
-            </Pagination>
           </tbody>
         </Table>
       </>

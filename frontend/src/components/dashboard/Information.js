@@ -1,8 +1,9 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { saveInformation } from "../../actions/informationActions";
-import { Container, Form, Col, Button } from "react-bootstrap";
+//import { saveInformation } from "../../actions/informationActions";
+import { Container, Form, Col, Button, Alert } from "react-bootstrap";
+import axios from "axios";
 
 class Information extends Component {
   state = {
@@ -36,7 +37,8 @@ class Information extends Component {
       programa_interes: this.state.interes,
     };
 
-    this.props.saveInformation(Data);
+    //this.props.saveInformation(Data);
+    this.saveInformation(Data);
 
     this.setState({
       firstName: "",
@@ -48,6 +50,23 @@ class Information extends Component {
       age: "",
       interes: "",
     });
+  };
+
+  saveInformation = (registerData) => {
+    axios
+      .post(`/services_fastcode/webapi/categoria_curso_service`, registerData)
+      .then((res) => {
+        res.data = 1
+          ? alert("¡Sus datos han sido guardados exitosamente!")
+          : //<Alert variant="primary">
+            //  ¡Sus datos han sido guardados exitosamente!
+            //</Alert>
+            alert("¡Sus datos no se han podido guardar con exito!");
+            //<Alert variant="danger">
+            //  ¡Sus datos no se han podido guardar con exito!
+            //</Alert>
+      })
+      .catch((err) => console.log(err));
   };
 
   render() {
@@ -141,7 +160,7 @@ class Information extends Component {
 }
 
 Information.propTypes = {
-  saveInformation: PropTypes.func.isRequired,
+  //saveInformation: PropTypes.func.isRequired,
   //verification: PropTypes.number.isRequired,
 };
 
@@ -149,4 +168,4 @@ const mapStateToProps = (state) => ({
   //verification: state.verification,
 });
 
-export default connect(mapStateToProps, { saveInformation })(Information);
+export default connect(mapStateToProps)(Information);

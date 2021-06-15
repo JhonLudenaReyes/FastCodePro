@@ -58,13 +58,7 @@ class Information extends Component {
       .then((res) => {
         res.data = 1
           ? alert("¡Sus datos han sido guardados exitosamente!")
-          : //<Alert variant="primary">
-            //  ¡Sus datos han sido guardados exitosamente!
-            //</Alert>
-            alert("¡Sus datos no se han podido guardar con exito!");
-            //<Alert variant="danger">
-            //  ¡Sus datos no se han podido guardar con exito!
-            //</Alert>
+          : alert("¡Sus datos no se han podido guardar con exito!");
       })
       .catch((err) => console.log(err));
   };
@@ -150,6 +144,8 @@ class Information extends Component {
               placeholder="Ingrese su programa de interes"
             />
           </Form.Group>
+          <span>*Todos los campos son requeridos</span>
+          <hr />
           <Button variant="primary" type="submit">
             Regístrate
           </Button>

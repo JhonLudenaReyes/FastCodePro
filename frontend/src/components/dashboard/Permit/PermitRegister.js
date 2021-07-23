@@ -5,6 +5,8 @@ import { connect } from "react-redux";
 
 import { Container, Row, Col, Form, Button } from "react-bootstrap";
 
+import { saveAction } from "../../../actions/permitActions";
+
 import axios from "axios";
 
 class PermitRegister extends Component {
@@ -55,6 +57,8 @@ class PermitRegister extends Component {
     } else {
       this.editPermitRegister(dataEdit);
     }
+
+    this.props.saveAction(true);
 
     //Función que limpia el formulario...
     this.clearState();
@@ -123,6 +127,7 @@ class PermitRegister extends Component {
 
 PermitRegister.propTypes = {
   permit: PropTypes.object.isRequired,
+  saveAction: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -130,6 +135,5 @@ const mapStateToProps = (state) => ({
 });
 
 export default connect(mapStateToProps, {
-  //saveRoleRegister,
-  //editRoleRegister,
+  saveAction,
 })(withRouter(PermitRegister));

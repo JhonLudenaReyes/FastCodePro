@@ -8,6 +8,7 @@ import { Table, Button } from "react-bootstrap";
 import axios from "axios";
 
 import { savePermit } from "../../../actions/permitActions";
+import { saveAction } from "../../../actions/permitActions";
 
 class ListPermits extends Component {
   state = {
@@ -18,12 +19,13 @@ class ListPermits extends Component {
     this.getListPermits();
   }
 
-  //componentDidUpdate(prevProps) {
-  //  const { listRolesByRole } = this.props.role;
-  //  if (listRolesByRole === prevProps.role.listRolesByRole) {
-  //    this.getListRole();
-  //  }
-  //}
+  componentDidUpdate(prevProps) {
+    const { action } = this.props.permit;
+    if (action !== prevProps.permit.action) {
+      this.getListPermits();
+      this.props.saveAction(false);
+    }
+  }
 
   getListPermits = () => {
     axios
@@ -75,13 +77,7 @@ class ListPermits extends Component {
               <th>Id Permiso</th>
               <th>Nombre Del permiso</th>
               <th>
-                Acciones{" "}
-                <Link
-                  to="/dashboard/super-administrator/users-administration/user-save"
-                  className="btn btn-outline-primary"
-                >
-                  Agregar
-                </Link>
+                Acciones
               </th>
             </tr>
           </thead>
@@ -122,13 +118,15 @@ class ListPermits extends Component {
 
 ListPermits.propTypes = {
   savePermit: PropTypes.func.isRequired,
+  permit: PropTypes.object.isRequired,
+  saveAction: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
-  //auth: state.auth,
-  //role: state.role,
+  permit: state.permit,
 });
 
 export default connect(mapStateToProps, {
   savePermit,
+  saveAction,
 })(withRouter(ListPermits));

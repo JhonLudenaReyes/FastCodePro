@@ -35,6 +35,12 @@ class AuthNavbar extends Component {
           >
             <b>Rol</b>
           </Link>
+          <Link className="Link"
+            to="/dashboard/super-administrator/permits-administration"
+            style={{ color: "gray", textDecoration: "inherit" }}
+          >
+            <b>Permiso</b>
+          </Link>
         </Nav>
         <Form inline>
           <Col md="auto">

@@ -7,6 +7,7 @@ import informationReducer from "./informationReducer";
 import userReducer from "./userReducer";
 import roleReducer from "./roleReducer";
 import userRolesReducer from "./userRolesReducer";
+import permitReducer from "./permitReducer";
 
 export default combineReducers({
   auth: authReducer,
@@ -17,4 +18,5 @@ export default combineReducers({
   user: userReducer,
   role: roleReducer,
   userRole: userRolesReducer,
+  permit: permitReducer,
 });

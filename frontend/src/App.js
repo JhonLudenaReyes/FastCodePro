@@ -20,6 +20,8 @@ import UsersAdmin from "./components/dashboard/User/UsersAdmin";
 import UserRegister from "./components/dashboard/User/UserRegister";
 import RolesAdmin from "./components/dashboard/Role/RolesAdmin";
 
+import PermitsAdmin from "./components/dashboard/Permit/PermitsAdmin";
+
 // Check for token to keep user logged in
 if (localStorage.jwtToken) {
   // Set auth token header auth
@@ -74,6 +76,11 @@ class App extends Component {
                 exact
                 path="/dashboard/super-administrator/roles-administration"
                 component={RolesAdmin}
+              />
+              <PrivateRoute
+                exact
+                path="/dashboard/super-administrator/permits-administration"
+                component={PermitsAdmin}
               />
               <PrivateRoute
                 exact
